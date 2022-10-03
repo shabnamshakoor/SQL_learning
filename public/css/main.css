@@ -1,36 +1,62 @@
-body {
-    background-color: #2a2b2f; 
-    display: flex; 
-    flex-direction: column;
-    justify-content: center; 
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-weight: 300;
-    color: #fff;
-    text-align:center;
-}
+/*Movie stars: What movies are they in? Are they married to each other?
+//Singers: What songs did they write? Where are they from?
+//Authors: What books did they write?
+//Fictional characters: How are they related to other characters? What books do they show up in?*/
+    /* Create table about the people and what they do here */
+CREATE TABLE famous(id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,job TEXT,MOVIE_NAME TEXT);
+INSERT INTO famous (name,job,MOVIE_NAME) VALUES("Biber","singer","SELENA");
+INSERT INTO famous (name,job) VALUES("ronaldo","fotball player");
+INSERT INTO famous (name,job,MOVIE_NAME) VALUES("kristina","autor","SOCCER");
+INSERT INTO famous (name,job,MOVIE_NAME) VALUES("Katie","autor","Reader");
+INSERT INTO famous (name,job,MOVIE_NAME) VALUES("decaprio","actor","DIAMOND");
+INSERT INTO famous (name,job) VALUES("celindion","singer");
+INSERT INTO famous (name,job) VALUES("Jenifer","singer");
+INSERT INTO famous (name,job,MOVIE_NAME) VALUES("aniston","actress","FRIENDS");
+INSERT INTO famous (name,job,MOVIE_NAME) VALUES("brad_pitt","actor","FIGHT");
+INSERT INTO famous (name,job) VALUES("paolo","autor");
 
-.mona-images {
-    max-width: 400px;
-    max-height: 400px;
-    border: 8px solid #fff;
-}
+CREATE TABLE MOVIE_STAR(id INTEGER PRIMARY KEY AUTOINCREMENT,famous_id INTEGER,MARRIED TEXT,MARRIED_id INTEGER);
+INSERT INTO MOVIE_STAR (famous_id,MARRIED,MARRIED_id) VALUES(5,"MARRIED",2);
+INSERT INTO MOVIE_STAR (famous_id,MARRIED,MARRIED_id) VALUES(8,"MARRIED",1);
+INSERT INTO MOVIE_STAR (famous_id,MARRIED,MARRIED_id) VALUES(9,"MARRIED",3);
+INSERT INTO MOVIE_STAR (famous_id,MARRIED,MARRIED_id) VALUES(4,"MARRIED",6);
 
-.haiku-containers {
-    padding: 10px 0px 20px 0px;
-}
+CREATE TABLE SINGER(id INTEGER PRIMARY KEY AUTOINCREMENT,famous_id INTEGER,SONG_name TEXT,NATIONALITY TEXT);
+INSERT INTO SINGER (famous_id,SONG_name,NATIONALITY) VALUES(1,"CALM_down","USS");
+INSERT INTO SINGER (famous_id,SONG_name,NATIONALITY) VALUES(6,"TITANIK","USA");
+INSERT INTO SINGER (famous_id,SONG_name,NATIONALITY) VALUES(7,"wake me up","LA");
 
-.haikus {
-    font-size: 18px;
-    white-space: pre-wrap;
-}
+CREATE TABLE AUTHOR(id INTEGER PRIMARY KEY AUTOINCREMENT,famous_id INTEGER,BOOK_name TEXT, BOOK_id INTEGER);
+INSERT INTO AUTHOR (famous_id,BOOK_name,BOOK_id) VALUES(3,"zendegi",1);
+INSERT INTO AUTHOR (famous_id,BOOK_name,BOOK_id) VALUES(3,"zeendegi2",2);
+INSERT INTO AUTHOR (famous_id,BOOK_name,BOOK_id) VALUES(4,"ZANANE_kouchak",3);
+INSERT INTO AUTHOR (famous_id,BOOK_name,BOOK_id) VALUES(4,"ZANANE_kouchak2",4);
+INSERT INTO AUTHOR (famous_id,BOOK_name,BOOK_id) VALUES(10,"KAMYAB",5);
 
-@media only screen and (max-width: 600px) {
-    .june-images {
-        max-width: 340px;
-        max-height: 340px;
-    }
+CREATE TABLE FRACTIONAL_CHARACTERS(id INTEGER PRIMARY KEY AUTOINCREMENT, CHARACTER_name TEXT,BOOK_name_id INTEGER,teammate_id INTEGER);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("sefidbarfi",1,2);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("motalayi",1,1);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("moboland",2,4);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("sefidbarfi",2,3);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("motalayi",3,6);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("moboland",3,5);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("sefidbarfi",4,8);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id,teammate_id) VALUES("motalayi",4,7);
+INSERT INTO FRACTIONAL_CHARACTERS (CHARACTER_name,BOOK_name_id) VALUES("moboland",9);
 
-    .haikus {
-        font-size: 22px;
-    }
-}
+
+SELECT famous.name, famous.MOVIE_name from famous;
+
+SELECT a.name, MOVIE_STAR.MARRIED, b.name As name from MOVIE_STAR JOIN famous a on a.id=MOVIE_STAR.famous_id
+JOIN famous b on MOVIE_STAR.MARRIED_id=b.id GROUP BY a.name;
+
+SELECT famous.name,SINGER.SONG_name,SINGER.NATIONALITY from famous LEFT OUTER JOIN SINGER on famous.id=SINGER.famous_id GROUP BY famous.id;
+
+SELECT famous.name,AUTHOR.BOOK_name from AUTHOR LEFT OUTER JOIN famous on famous.id=AUTHOR.famous_id GROUP BY AUTHOR.BOOK_name;
+
+SELECT a.CHARACTER_name,AUTHOR.BOOK_name,b.CHARACTER_name AS cooworkers from AUTHOR JOIN FRACTIONAL_CHARACTERS a on a.BOOK_name_id=AUTHOR.BOOK_id JOIN FRACTIONAL_CHARACTERS b on b.teammate_id=a.id GROUP BY AUTHOR.BOOK_name;
+
+
+
+
+
