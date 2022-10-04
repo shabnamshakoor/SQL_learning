@@ -1,1 +1,23 @@
 
+/* What does the app's SQL look like? */
+/*I creat an application for saving the diaries for each day and then tried on updating and deleting raws queries*/
+
+CREATE TABLE diary (id INTEGER PRIMARY KEY, date TEXT, CONTENT TEXT);
+
+INSERT INTO diary (date,CONTENT) VALUES ("04.10.2022","learned forth lesson of sql in khan ACADEMY");
+
+INSERT INTO diary (date,CONTENT) VALUES ("03.10.2022","learned Third lesson of sql in khan ACADEMY");
+
+INSERT INTO diary (date,CONTENT) VALUES ("02.10.2022","learned 2nd lesson of sql in khan ACADEMY");
+
+INSERT INTO diary (date,CONTENT) VALUES ("01.10.2022","learned 1th lesson of sql in khan ACADEMY");
+
+SELECT * from diary;
+
+UPDATE diary SET CONTENT="excersied" where id=4 AND date="01.10.2022";
+
+SELECT * from diary;
+
+DELETE from diary where id=4 AND date="01.10.2022";
+
+SELECT * from diary;
